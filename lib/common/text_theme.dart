@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// Colors
-final Color primaryColor = Color(0xFFFFFFFF);
-
 /// Text themes
 final TextTheme appTextTheme = TextTheme(
   headline1: GoogleFonts.kanit(
