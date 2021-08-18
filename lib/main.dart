@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/common/colors.dart';
+import 'package:restaurant_app/common/theme.dart';
 import 'package:restaurant_app/ui/home_page.dart';
 
 void main() {
@@ -11,10 +11,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Restaurant',
-      theme: ThemeData(
-        primaryColorDark: primaryColorDark,
-        primaryColorLight: primaryColorLight,
-      ),
+      theme: lightTheme,
+      darkTheme: darkTheme,
       initialRoute: HomePage.routeName,
       routes: {
         HomePage.routeName: (context) => HomePage(),
