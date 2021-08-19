@@ -24,12 +24,24 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # User Interface
   cupertino_icons: ^1.0.2
   google_fonts: ^2.1.0
+
+  # API
+  chopper: ^4.0.0
+  provider: ^5.0.0
+
+  # Log
+  logging: ^1.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  # API
+  build_runner: ^2.0.0
+  chopper_generator: ^4.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
