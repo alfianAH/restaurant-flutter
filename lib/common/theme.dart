@@ -5,6 +5,7 @@ import 'package:restaurant_app/common/text_theme.dart';
 /// Theme data for [darkTheme]
 final ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: primaryColorDark,
+  accentColor: secondaryColorDark,
   textTheme: appTextTheme.apply(
     bodyColor: Colors.white,
     displayColor: Colors.white,
@@ -17,6 +18,7 @@ final ThemeData darkTheme = ThemeData(
 /// Theme data for [lightTheme]
 final ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: primaryColorLight,
+  accentColor: secondaryColorLight,
   textTheme: appTextTheme.apply(
     bodyColor: Colors.black,
     displayColor: Colors.black,
