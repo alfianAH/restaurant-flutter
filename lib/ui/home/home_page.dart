@@ -1,8 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget{
+class HomePage extends StatefulWidget{
   static const routeName = 'home_page';
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -10,6 +17,7 @@ class HomePage extends StatelessWidget{
 
     return Scaffold(
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Container(
           padding: const EdgeInsets.all(32),
           child: Column(
@@ -33,6 +41,7 @@ class HomePage extends StatelessWidget{
               Container(
                 width: 500,
                 child: ListView.builder(
+                  controller: _scrollController,
                   shrinkWrap: true,
                   itemCount: 5,
                   itemBuilder: (context, index) {
@@ -45,6 +54,12 @@ class HomePage extends StatelessWidget{
         ),
       ),
     );
+  }
+
+  @override
+  void dispose(){
+    _scrollController.dispose();
+    super.dispose();
   }
 
   Widget _listItem(BuildContext context){
@@ -132,7 +147,7 @@ class HomePage extends StatelessWidget{
 
                       // Restaurant description
                       Text(
-                        'Lorem ipsum dolor sit amet, consectetuer adipiscing elit',
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
                         style: themeData.textTheme.bodyText1,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
