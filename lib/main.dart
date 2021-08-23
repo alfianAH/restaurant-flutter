@@ -18,20 +18,28 @@ void _setupLogging(){
 }
 
 class MyApp extends StatelessWidget {
+  final ValueNotifier<ThemeMode> _notifier = ValueNotifier(ThemeMode.dark);
+
   @override
   Widget build(BuildContext context) {
-    return Provider(
-      create: (_) => RestaurantProviderService.create(),
-      dispose: (_, RestaurantProviderService service) => service.client.dispose(),
-      child: MaterialApp(
-        title: 'Restaurant',
-        theme: lightTheme,
-        darkTheme: darkTheme,
-        initialRoute: MainScaffold.routeName,
-        routes: {
-          MainScaffold.routeName: (context) => MainScaffold(),
-        },
-      ),
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: _notifier,
+      builder: (context, mode, child) {
+        return Provider(
+          create: (_) => RestaurantProviderService.create(),
+          dispose: (_, RestaurantProviderService service) => service.client.dispose(),
+          child: MaterialApp(
+            title: 'Restaurant',
+            theme: lightTheme,
+            darkTheme: darkTheme,
+            themeMode: mode,
+            home: MainScaffold(
+              notifier: _notifier,
+              currentTheme: mode,
+            ),
+          ),
+        );
+      },
     );
   }
 }

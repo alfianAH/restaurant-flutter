@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget{
-  static const routeName = 'home_page';
-
   @override
   _HomePageState createState() => _HomePageState();
 }
