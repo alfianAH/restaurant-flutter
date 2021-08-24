@@ -38,7 +38,10 @@ class _SettingsPageState extends State<SettingsPage> {
             Container(
               width: 500,
               child: ListTile(
-                title: Text('Light Theme'),
+                title: Text(
+                  'Light Theme',
+                  style: textTheme.headline6,
+                ),
                 trailing: Switch.adaptive(
                   value: isLightMode,
                   inactiveTrackColor: Colors.white,

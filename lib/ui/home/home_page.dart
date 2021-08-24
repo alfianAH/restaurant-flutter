@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/ui/detail/detail_page.dart';
+import 'package:restaurant_app/ui/template/icon_text.dart';
 
 class HomePage extends StatefulWidget{
   @override
@@ -66,7 +68,13 @@ class _HomePageState extends State<HomePage> {
     return Container(
       padding: const EdgeInsets.only(top: 8.0),
       child: InkWell(
-        onTap: (){},
+        onTap: (){
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context){
+              return DetailPage();
+            })
+          );
+        },
         child: Card(
           color: themeData.accentColor,
           shape: RoundedRectangleBorder(
@@ -122,21 +130,16 @@ class _HomePageState extends State<HomePage> {
                           ),
 
                           // Restaurant stars
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.star_rounded,
-                                color: Color(0xFFFFE923),
-                                size: 24,
-                              ),
-
-                              SizedBox(width: 8,),
-
-                              Text(
-                                '5.0',
-                                style: themeData.textTheme.bodyText2,
-                              )
-                            ],
+                          IconText(
+                            text: Text(
+                              '5.0',
+                              style: themeData.textTheme.subtitle1,
+                            ),
+                            icon: Icon(
+                              Icons.star_rounded,
+                              color: Color(0xFFFFE923),
+                              size: 24,
+                            ),
                           ),
                         ],
                       ),
