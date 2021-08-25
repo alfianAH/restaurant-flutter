@@ -28,6 +28,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^2.1.0
   persistent_bottom_nav_bar: ^4.0.2
+  universal_platform: ^1.0.0+1
 
   # API
   chopper: ^4.0.0

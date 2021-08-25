@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:restaurant_app/common/colors.dart';
 import 'package:restaurant_app/ui/home/home_page.dart';
 import 'package:restaurant_app/ui/settings/settings_page.dart';
+import 'package:restaurant_app/ui/widgets/platform_widget.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 class MainScaffold extends StatefulWidget{
   final ValueNotifier<ThemeMode> notifier;
@@ -36,7 +39,11 @@ class _MainScaffoldState extends State<MainScaffold> {
     return [
       // Home
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.home_rounded),
+        icon: Icon(
+          UniversalPlatform.isWeb
+              ? CupertinoIcons.home // iOS Icon
+              : Icons.home_rounded // Other icon
+        ),
         title: 'Home',
         activeColorPrimary: activeOtherColor,
         inactiveColorPrimary: inactiveOtherColor,
@@ -44,7 +51,11 @@ class _MainScaffoldState extends State<MainScaffold> {
 
       // Settings
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.settings_rounded),
+        icon: Icon(
+          UniversalPlatform.isWeb
+              ? CupertinoIcons.settings // iOS Icon
+              : Icons.settings_rounded // Other icon
+        ),
         title: 'Settings',
         activeColorPrimary: activeOtherColor,
         inactiveColorPrimary: inactiveOtherColor,
@@ -54,17 +65,9 @@ class _MainScaffoldState extends State<MainScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData themeData = Theme.of(context);
-
-    return Scaffold(
-      bottomNavigationBar: PersistentTabView(
-        context,
-        controller: _bottomNavController,
-        backgroundColor: themeData.scaffoldBackgroundColor,
-        screens: _screens(context),
-        items: _navBarItems(),
-        navBarStyle: NavBarStyle.style13,
-      ),
+    return PlatformWidget(
+      androidBuilder: _buildAndroid,
+      iosBuilder: _buildIos
     );
   }
 
@@ -72,5 +75,33 @@ class _MainScaffoldState extends State<MainScaffold> {
   void dispose() {
     _bottomNavController.dispose();
     super.dispose();
+  }
+
+  /// Scaffold for android
+  Widget _buildAndroid(BuildContext context){
+    print("build");
+    return Scaffold(
+      bottomNavigationBar: PersistentTabView(
+        context,
+        controller: _bottomNavController,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        screens: _screens(context),
+        items: _navBarItems(),
+        navBarStyle: NavBarStyle.style13,
+      ),
+    );
+  }
+
+  Widget _buildIos(BuildContext context){
+    return CupertinoPageScaffold(
+      child: PersistentTabView(
+        context,
+        controller: _bottomNavController,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        screens: _screens(context),
+        items: _navBarItems(),
+        navBarStyle: NavBarStyle.style13,
+      ),
+    );
   }
 }
