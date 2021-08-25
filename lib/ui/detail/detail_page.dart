@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/data/model/restaurant_model.dart';
 import 'package:restaurant_app/ui/template/icon_text.dart';
 
 class DetailPage extends StatelessWidget{
-  final List<String> list = ['Lorem', 'Lorem'];
+  final Restaurants restaurant;
+
+  DetailPage({
+    required this.restaurant,
+  });
 
   TextTheme _textTheme(BuildContext context){
     return Theme.of(context).textTheme;
@@ -56,7 +61,7 @@ class DetailPage extends StatelessWidget{
         IconText(
           // Title
           text: Text(
-            'Lorem Ipsum',
+            restaurant.name ?? '',
             style: _textTheme(context).headline5
           ),
           // Back Button
@@ -91,7 +96,7 @@ class DetailPage extends StatelessWidget{
           child: Container(
             width: 350,
             child: Image.network(
-              'https://restaurant-api.dicoding.dev/images/medium/14',
+              restaurant.pictureId ?? '',
             ),
           ),
         ),
@@ -105,7 +110,7 @@ class DetailPage extends StatelessWidget{
   Widget _restaurantCity(BuildContext context){
     return IconText(
       text: Text(
-        'Restaurant city',
+        restaurant.city ?? '',
         style: _textTheme(context).subtitle1,
       ),
       icon: Icon(
@@ -118,7 +123,7 @@ class DetailPage extends StatelessWidget{
   Widget _restaurantStars(BuildContext context){
     return IconText(
       text: Text(
-        '5.0',
+        restaurant.rating?.toStringAsFixed(1) ?? '',
         style: _textTheme(context).subtitle1,
       ),
       icon: Icon(
@@ -153,7 +158,7 @@ class DetailPage extends StatelessWidget{
         SizedBox(height: 8),
 
         Text(
-          'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.',
+          restaurant.description ?? '',
           style: _textTheme(context).bodyText1
         ),
 
@@ -187,6 +192,7 @@ class DetailPage extends StatelessWidget{
         // Menu
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Foods
             _buildMenu(
@@ -200,7 +206,7 @@ class DetailPage extends StatelessWidget{
                   Icons.lunch_dining_rounded,
                 ),
               ),
-              list,
+              restaurant.menus?.foods ?? [''],
             ),
 
             // Drinks
@@ -215,7 +221,7 @@ class DetailPage extends StatelessWidget{
                   Icons.coffee_rounded,
                 ),
               ),
-              list,
+              restaurant.menus?.drinks ?? [''],
             ),
           ],
         )
@@ -243,10 +249,10 @@ class DetailPage extends StatelessWidget{
             // List
             ListView.builder(
               shrinkWrap: true,
-              itemCount: list.length,
+              itemCount: menuList.length,
               itemBuilder: (context, index) {
                 return Text(
-                  '\u2022 ${list[index]}',
+                  '\u2022 ${menuList[index].name}',
                   style: _textTheme(context).bodyText2,
                 );
               },
