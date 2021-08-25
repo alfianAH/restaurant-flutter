@@ -209,35 +209,37 @@ class _HomePageState extends State<HomePage> {
   /// Scaffold for android
   Widget _buildAndroid(BuildContext context){
     return Scaffold(
-      body: SingleChildScrollView(
-        controller: _scrollController,
-        child: Container(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                _title,
-                style: _textTheme(context).headline5,
-              ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          child: Container(
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  _title,
+                  style: _textTheme(context).headline5,
+                ),
 
-              SizedBox(height: 8),
+                SizedBox(height: 8),
 
-              Divider(
-                color: _textTheme(context).headline6!.color,
-                thickness: 2,
-              ),
+                Divider(
+                  color: _textTheme(context).headline6!.color,
+                  thickness: 2,
+                ),
 
-              SizedBox(height: 16),
+                SizedBox(height: 16),
 
-              // Restaurant list
-              Container(
-                width: 500,
-                child: _loadRestaurantList(context),
-              ),
-            ]
+                // Restaurant list
+                Container(
+                  width: 500,
+                  child: _loadRestaurantList(context),
+                ),
+              ]
+            ),
           ),
-        ),
+        )
       ),
     );
   }
