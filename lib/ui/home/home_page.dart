@@ -1,5 +1,9 @@
+import 'package:chopper/chopper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app/data/model/restaurant_model.dart';
+import 'package:restaurant_app/service/restaurant_provider_service.dart';
 import 'package:restaurant_app/ui/detail/detail_page.dart';
 import 'package:restaurant_app/ui/template/icon_text.dart';
 
@@ -10,6 +14,10 @@ class HomePage extends StatefulWidget{
 
 class _HomePageState extends State<HomePage> {
   final ScrollController _scrollController = ScrollController();
+
+  TextTheme _textTheme(BuildContext context){
+    return Theme.of(context).textTheme;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +48,7 @@ class _HomePageState extends State<HomePage> {
               // Restaurant list
               Container(
                 width: 500,
-                child: ListView.builder(
-                  controller: _scrollController,
-                  shrinkWrap: true,
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return _listItem(context);
-                  },
-                ),
+                child: _loadRestaurantList(context),
               ),
             ]
           ),
@@ -62,7 +63,71 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  Widget _listItem(BuildContext context){
+  Widget _loadRestaurantList(BuildContext context){
+    return FutureBuilder<Response<RestaurantModel>>(
+      future: Provider.of<RestaurantProviderService>(context).getRestaurants(),
+      builder:(context, snapshot) {
+        // If connection is done
+        if(snapshot.connectionState == ConnectionState.done){
+          // If snapshot has error
+          if(snapshot.hasError){
+            return Container(
+              padding: const EdgeInsets.all(32),
+              child: Text(
+                snapshot.error.toString(),
+
+              ),
+            );
+          }
+
+          // Get data
+          final restaurantModel = snapshot.data?.body;
+
+          // If restaurant model is null, ...
+          if(restaurantModel == null){
+            return Container(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Text(
+                'Failed to get response, because the data is null',
+                style: _textTheme(context).bodyText1,
+              ),
+            );
+          }
+
+          // If there are response
+          if(restaurantModel.restaurants!.length > 0){
+            return ListView.builder(
+              controller: _scrollController,
+              shrinkWrap: true,
+              itemCount: restaurantModel.restaurants!.length,
+              itemBuilder: (context, index) {
+                return _restaurantListItem(
+                  context,
+                  restaurantModel.restaurants![index]
+                );
+              },
+            );
+          }
+
+          // Return Text if there are no responses
+          return Container(
+            padding: const EdgeInsets.only(top: 8),
+            child: Text(
+              'There are no results',
+              style: _textTheme(context).bodyText1,
+            ),
+          );
+        } else{ // Else show loading
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+
+  /// List of restaurants
+  Widget _restaurantListItem(BuildContext context, Restaurants restaurant){
     ThemeData themeData = Theme.of(context);
 
     return Container(
@@ -94,7 +159,7 @@ class _HomePageState extends State<HomePage> {
                     width: 140,
                     height: 140,
                     child: Image.network(
-                      'https://restaurant-api.dicoding.dev/images/medium/14',
+                      restaurant.pictureId.toString(),
                       fit: BoxFit.fitHeight,
                     ),
                   ),
@@ -111,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       // Restaurant name
                       Text(
-                        'Lorem ipsum',
+                        restaurant.name ?? '',
                         style: themeData.textTheme.subtitle1,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -123,7 +188,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           // Restaurant city
                           Text(
-                            'Lorem ipsum',
+                            restaurant.city ?? '',
                             style: themeData.textTheme.bodyText2,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -132,7 +197,7 @@ class _HomePageState extends State<HomePage> {
                           // Restaurant stars
                           IconText(
                             text: Text(
-                              '5.0',
+                              restaurant.rating?.toStringAsFixed(1) ?? '',
                               style: themeData.textTheme.subtitle1,
                             ),
                             icon: Icon(
@@ -148,7 +213,7 @@ class _HomePageState extends State<HomePage> {
 
                       // Restaurant description
                       Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
+                        restaurant.description ?? '',
                         style: themeData.textTheme.bodyText1,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
