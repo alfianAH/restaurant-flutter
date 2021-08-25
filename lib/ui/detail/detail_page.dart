@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/data/model/restaurant_model.dart';
 import 'package:restaurant_app/ui/widgets/icon_text.dart';
+import 'package:restaurant_app/ui/widgets/platform_widget.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 class DetailPage extends StatelessWidget{
   final Restaurants restaurant;
@@ -15,40 +18,108 @@ class DetailPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    return PlatformWidget(
+      androidBuilder: _buildAndroid,
+      iosBuilder: _buildIos
+    );
+  }
+
+  /// Scaffold for android
+  Widget _buildAndroid(BuildContext context){
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            children: [
-              // Title
-              _detailTitle(context),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              children: [
+                // Title
+                _detailTitle(context),
 
-              // Restaurant Photo
-              _restaurantPhoto(context),
+                // Restaurant Photo
+                _restaurantPhoto(context),
 
-              // Restaurant city and stars
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Restaurant city
-                  _restaurantCity(context),
+                // Restaurant city and stars
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Restaurant city
+                    _restaurantCity(context),
 
-                  // Restaurant stars
-                  _restaurantStars(context),
-                ],
-              ),
+                    // Restaurant stars
+                    _restaurantStars(context),
+                  ],
+                ),
 
-              SizedBox(height: 16),
+                SizedBox(height: 16),
 
-              // Restaurant description
-              _restaurantDetail(context),
+                // Restaurant description
+                _restaurantDetail(context),
 
-              // Restaurant Menus
-              _restaurantMenus(context),
-            ],
+                // Restaurant Menus
+                _restaurantMenus(context),
+              ],
+            ),
+          ),
+        )
+      ),
+    );
+  }
+
+  Widget _buildIos(BuildContext context){
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        leading: Material(
+          color: Theme.of(context).primaryColor,
+          child: IconButton(
+            onPressed: (){
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              UniversalPlatform.isIOS
+                  ? CupertinoIcons.back
+                  : Icons.arrow_back_ios_rounded
+            )
           ),
         ),
+        middle: Text(
+          restaurant.name ?? '',
+          style: _textTheme(context).headline5
+        ),
+      ),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              children: [
+                // Restaurant Photo
+                _restaurantPhoto(context),
+
+                // Restaurant city and stars
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Restaurant city
+                    _restaurantCity(context),
+
+                    // Restaurant stars
+                    _restaurantStars(context),
+                  ],
+                ),
+
+                SizedBox(height: 16),
+
+                // Restaurant description
+                _restaurantDetail(context),
+
+                // Restaurant Menus
+                _restaurantMenus(context),
+              ],
+            ),
+          ),
+        )
       ),
     );
   }

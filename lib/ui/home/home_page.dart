@@ -176,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                               style: themeData.textTheme.subtitle1,
                             ),
                             icon: Icon(
-                              UniversalPlatform.isWeb
+                              UniversalPlatform.isIOS
                                   ? CupertinoIcons.star_fill
                                   : Icons.star_rounded,
                               color: Color(0xFFFFE923),
@@ -206,7 +206,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// Scaffold for android
+  /// Scaffold for android platform
   Widget _buildAndroid(BuildContext context){
     return Scaffold(
       body: SafeArea(
@@ -244,6 +244,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Scaffold for iOS platform
   Widget _buildIos(BuildContext context){
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(

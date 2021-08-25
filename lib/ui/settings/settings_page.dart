@@ -36,6 +36,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Container(
       width: 500,
       child: ListView(
+        shrinkWrap: true,
         children: [
           ListTile(
             title: Text(

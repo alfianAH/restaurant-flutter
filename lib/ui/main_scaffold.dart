@@ -40,7 +40,7 @@ class _MainScaffoldState extends State<MainScaffold> {
       // Home
       PersistentBottomNavBarItem(
         icon: Icon(
-          UniversalPlatform.isWeb
+          UniversalPlatform.isIOS
               ? CupertinoIcons.home // iOS Icon
               : Icons.home_rounded // Other icon
         ),
@@ -52,7 +52,7 @@ class _MainScaffoldState extends State<MainScaffold> {
       // Settings
       PersistentBottomNavBarItem(
         icon: Icon(
-          UniversalPlatform.isWeb
+          UniversalPlatform.isIOS
               ? CupertinoIcons.settings // iOS Icon
               : Icons.settings_rounded // Other icon
         ),
