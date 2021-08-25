@@ -79,7 +79,6 @@ class _MainScaffoldState extends State<MainScaffold> {
 
   /// Scaffold for android
   Widget _buildAndroid(BuildContext context){
-    print("build");
     return Scaffold(
       bottomNavigationBar: PersistentTabView(
         context,
@@ -92,6 +91,7 @@ class _MainScaffoldState extends State<MainScaffold> {
     );
   }
 
+  /// Scaffold for iOS
   Widget _buildIos(BuildContext context){
     return CupertinoPageScaffold(
       child: PersistentTabView(
