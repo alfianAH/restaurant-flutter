@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/model/restaurant_model.dart';
 import 'package:restaurant_app/service/restaurant_provider_service.dart';
 import 'package:restaurant_app/ui/detail/detail_page.dart';
-import 'package:restaurant_app/ui/template/icon_text.dart';
+import 'package:restaurant_app/ui/widgets/icon_text.dart';
 
 class HomePage extends StatefulWidget{
   @override

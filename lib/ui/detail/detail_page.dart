@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/data/model/restaurant_model.dart';
-import 'package:restaurant_app/ui/template/icon_text.dart';
+import 'package:restaurant_app/ui/widgets/icon_text.dart';
 
 class DetailPage extends StatelessWidget{
   final Restaurants restaurant;
