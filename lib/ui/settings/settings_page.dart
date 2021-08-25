@@ -16,6 +16,8 @@ class SettingsPage extends StatefulWidget{
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  final String _title = 'Settings';
+
   TextTheme _textTheme(BuildContext context){
     return Theme.of(context).textTheme;
   }
@@ -70,7 +72,7 @@ class _SettingsPageState extends State<SettingsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Settings',
+                _title,
                 style: _textTheme(context).headline5,
               ),
 
@@ -93,12 +95,15 @@ class _SettingsPageState extends State<SettingsPage> {
       navigationBar: CupertinoNavigationBar(
         backgroundColor: Theme.of(context).primaryColor,
         middle: Text(
-          'Settings',
+          _title,
           style: _textTheme(context).headline5,
         ),
       ),
       child: SafeArea(
-        child: _buildSettingList(context),
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          child: _buildSettingList(context)
+        ),
       ),
     );
   }

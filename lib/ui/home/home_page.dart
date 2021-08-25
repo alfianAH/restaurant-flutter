@@ -6,6 +6,8 @@ import 'package:restaurant_app/data/model/restaurant_model.dart';
 import 'package:restaurant_app/service/restaurant_provider_service.dart';
 import 'package:restaurant_app/ui/detail/detail_page.dart';
 import 'package:restaurant_app/ui/widgets/icon_text.dart';
+import 'package:restaurant_app/ui/widgets/platform_widget.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 class HomePage extends StatefulWidget{
   @override
@@ -14,6 +16,7 @@ class HomePage extends StatefulWidget{
 
 class _HomePageState extends State<HomePage> {
   final ScrollController _scrollController = ScrollController();
+  final String _title = 'Restaurant';
 
   TextTheme _textTheme(BuildContext context){
     return Theme.of(context).textTheme;
@@ -21,39 +24,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-
-    return Scaffold(
-      body: SingleChildScrollView(
-        controller: _scrollController,
-        child: Container(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Restaurant',
-                style: textTheme.headline5,
-              ),
-
-              SizedBox(height: 8),
-
-              Divider(
-                color: textTheme.headline6!.color,
-                thickness: 2,
-              ),
-
-              SizedBox(height: 16),
-
-              // Restaurant list
-              Container(
-                width: 500,
-                child: _loadRestaurantList(context),
-              ),
-            ]
-          ),
-        ),
-      ),
+    return PlatformWidget(
+      androidBuilder: _buildAndroid,
+      iosBuilder: _buildIos
     );
   }
 
@@ -203,7 +176,9 @@ class _HomePageState extends State<HomePage> {
                               style: themeData.textTheme.subtitle1,
                             ),
                             icon: Icon(
-                              Icons.star_rounded,
+                              UniversalPlatform.isWeb
+                                  ? CupertinoIcons.star_fill
+                                  : Icons.star_rounded,
                               color: Color(0xFFFFE923),
                               size: 24,
                             ),
@@ -227,6 +202,59 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  /// Scaffold for android
+  Widget _buildAndroid(BuildContext context){
+    return Scaffold(
+      body: SingleChildScrollView(
+        controller: _scrollController,
+        child: Container(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                _title,
+                style: _textTheme(context).headline5,
+              ),
+
+              SizedBox(height: 8),
+
+              Divider(
+                color: _textTheme(context).headline6!.color,
+                thickness: 2,
+              ),
+
+              SizedBox(height: 16),
+
+              // Restaurant list
+              Container(
+                width: 500,
+                child: _loadRestaurantList(context),
+              ),
+            ]
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildIos(BuildContext context){
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        middle: Text(
+          _title,
+          style: _textTheme(context).headline5
+        ),
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(32),
+        width: 500,
+        child: _loadRestaurantList(context),
       ),
     );
   }
