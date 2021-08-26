@@ -5,9 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/model/restaurant_model.dart';
 import 'package:restaurant_app/service/restaurant_provider_service.dart';
 import 'package:restaurant_app/ui/detail/detail_page.dart';
+import 'package:restaurant_app/ui/widgets/adaptive_icon.dart';
 import 'package:restaurant_app/ui/widgets/icon_text.dart';
 import 'package:restaurant_app/ui/widgets/platform_widget.dart';
-import 'package:universal_platform/universal_platform.dart';
 
 class HomePage extends StatefulWidget{
   @override
@@ -175,12 +175,11 @@ class _HomePageState extends State<HomePage> {
                               restaurant.rating?.toStringAsFixed(1) ?? '',
                               style: themeData.textTheme.subtitle1,
                             ),
-                            icon: Icon(
-                              UniversalPlatform.isIOS
-                                  ? CupertinoIcons.star_fill
-                                  : Icons.star_rounded,
-                              color: Color(0xFFFFE923),
-                              size: 24,
+                            icon: AdaptiveIcon(
+                              iosIcon: CupertinoIcons.star_fill,
+                              androidIcon: Icons.star_rounded,
+                              iconColor: Color(0xFFFFE923),
+                              iconSize: 24,
                             ),
                           ),
                         ],

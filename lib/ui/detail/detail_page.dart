@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/data/model/restaurant_model.dart';
+import 'package:restaurant_app/ui/widgets/adaptive_icon.dart';
 import 'package:restaurant_app/ui/widgets/icon_text.dart';
 import 'package:restaurant_app/ui/widgets/platform_widget.dart';
-import 'package:universal_platform/universal_platform.dart';
 
 class DetailPage extends StatelessWidget{
   final Restaurants restaurant;
 
   DetailPage({
-    required this.restaurant,
+    requiredg this.restaurant,
   });
 
   TextTheme _textTheme(BuildContext context){
@@ -76,11 +76,10 @@ class DetailPage extends StatelessWidget{
             onPressed: (){
               Navigator.pop(context);
             },
-            icon: Icon(
-              UniversalPlatform.isIOS
-                  ? CupertinoIcons.back
-                  : Icons.arrow_back_ios_rounded
-            )
+            icon: AdaptiveIcon(
+              iosIcon: CupertinoIcons.back,
+              androidIcon: Icons.arrow_back_ios_rounded,
+            ),
           ),
         ),
         middle: Text(

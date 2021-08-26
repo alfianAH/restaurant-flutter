@@ -4,8 +4,8 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:restaurant_app/common/colors.dart';
 import 'package:restaurant_app/ui/home/home_page.dart';
 import 'package:restaurant_app/ui/settings/settings_page.dart';
+import 'package:restaurant_app/ui/widgets/adaptive_icon.dart';
 import 'package:restaurant_app/ui/widgets/platform_widget.dart';
-import 'package:universal_platform/universal_platform.dart';
 
 class MainScaffold extends StatefulWidget{
   final ValueNotifier<ThemeMode> notifier;
@@ -39,10 +39,9 @@ class _MainScaffoldState extends State<MainScaffold> {
     return [
       // Home
       PersistentBottomNavBarItem(
-        icon: Icon(
-          UniversalPlatform.isIOS
-              ? CupertinoIcons.home // iOS Icon
-              : Icons.home_rounded // Other icon
+        icon: AdaptiveIcon(
+          iosIcon: CupertinoIcons.home, // iOS Icon
+          androidIcon: Icons.home_rounded, // Other icon
         ),
         title: 'Home',
         activeColorPrimary: activeOtherColor,
@@ -51,10 +50,9 @@ class _MainScaffoldState extends State<MainScaffold> {
 
       // Settings
       PersistentBottomNavBarItem(
-        icon: Icon(
-          UniversalPlatform.isIOS
-              ? CupertinoIcons.settings // iOS Icon
-              : Icons.settings_rounded // Other icon
+        icon: AdaptiveIcon(
+          iosIcon: CupertinoIcons.settings, // iOS Icon
+          androidIcon: Icons.settings_rounded, // Other icon
         ),
         title: 'Settings',
         activeColorPrimary: activeOtherColor,
