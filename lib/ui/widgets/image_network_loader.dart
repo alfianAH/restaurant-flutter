@@ -13,19 +13,22 @@ class ImageNetworkLoader extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(
-      imageSource,
-      fit: imageFit,
-      errorBuilder: (context, error, stackTrace) {
-        return Center(
-          child: AdaptiveIcon(
-            androidIcon: Icons.broken_image_rounded,
-            iosIcon: CupertinoIcons.arrow_clockwise,
-            iconSize: 75,
-            iconColor: Theme.of(context).textTheme.headline6!.color,
-          )
-        );
-      },
+    return Hero(
+      tag: imageSource,
+      child: Image.network(
+        imageSource,
+        fit: imageFit,
+        errorBuilder: (context, error, stackTrace) {
+          return Center(
+            child: AdaptiveIcon(
+              androidIcon: Icons.broken_image_rounded,
+              iosIcon: CupertinoIcons.arrow_clockwise,
+              iconSize: 75,
+              iconColor: Theme.of(context).textTheme.headline6!.color,
+            )
+          );
+        },
+      ),
     );
   }
 }
