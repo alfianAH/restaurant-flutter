@@ -7,6 +7,7 @@ import 'package:restaurant_app/service/restaurant_provider_service.dart';
 import 'package:restaurant_app/ui/detail/detail_page.dart';
 import 'package:restaurant_app/ui/widgets/adaptive_icon.dart';
 import 'package:restaurant_app/ui/widgets/icon_text.dart';
+import 'package:restaurant_app/ui/widgets/image_network_loader.dart';
 import 'package:restaurant_app/ui/widgets/platform_widget.dart';
 
 class HomePage extends StatefulWidget{
@@ -133,9 +134,9 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     width: 140,
                     height: 140,
-                    child: Image.network(
-                      restaurant.pictureId.toString(),
-                      fit: BoxFit.fitHeight,
+                    child: ImageNetworkLoader(
+                      imageSource: restaurant.pictureId ?? '',
+                      imageFit: BoxFit.fitHeight,
                     ),
                   ),
                 ),

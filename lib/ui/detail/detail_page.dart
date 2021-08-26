@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_app/data/model/restaurant_model.dart';
 import 'package:restaurant_app/ui/widgets/adaptive_icon.dart';
 import 'package:restaurant_app/ui/widgets/icon_text.dart';
+import 'package:restaurant_app/ui/widgets/image_network_loader.dart';
 import 'package:restaurant_app/ui/widgets/platform_widget.dart';
 
 class DetailPage extends StatelessWidget{
   final Restaurants restaurant;
 
-  DetailPage({
-    requiredg this.restaurant,
+  const DetailPage({
+    required this.restaurant,
   });
 
   TextTheme _textTheme(BuildContext context){
@@ -165,8 +166,8 @@ class DetailPage extends StatelessWidget{
           borderRadius: BorderRadius.circular(10),
           child: Container(
             width: 350,
-            child: Image.network(
-              restaurant.pictureId ?? '',
+            child: ImageNetworkLoader(
+              imageSource: restaurant.pictureId ?? '',
             ),
           ),
         ),
