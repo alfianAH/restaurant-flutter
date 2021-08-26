@@ -213,7 +213,7 @@ class _HomePageState extends State<HomePage> {
         child: SingleChildScrollView(
           controller: _scrollController,
           child: Container(
-            padding: const EdgeInsets.all(32),
+            padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -255,7 +255,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       child: Container(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(16),
         width: 500,
         child: _loadRestaurantList(context),
       ),

@@ -31,7 +31,7 @@ class DetailPage extends StatelessWidget{
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.all(32),
+            padding: const EdgeInsets.all(16),
             child: Column(
               children: [
                 // Title
@@ -67,6 +67,7 @@ class DetailPage extends StatelessWidget{
     );
   }
 
+  /// Scaffold for iOS
   Widget _buildIos(BuildContext context){
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
@@ -91,7 +92,7 @@ class DetailPage extends StatelessWidget{
       child: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.all(32),
+            padding: const EdgeInsets.all(16),
             child: Column(
               children: [
                 // Restaurant Photo
