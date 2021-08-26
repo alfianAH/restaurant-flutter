@@ -77,28 +77,32 @@ class _MainScaffoldState extends State<MainScaffold> {
 
   /// Scaffold for android
   Widget _buildAndroid(BuildContext context){
-    return Scaffold(
-      bottomNavigationBar: PersistentTabView(
-        context,
-        controller: _bottomNavController,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        screens: _screens(context),
-        items: _navBarItems(),
-        navBarStyle: NavBarStyle.style13,
+    return SafeArea(
+      child: Scaffold(
+        bottomNavigationBar: PersistentTabView(
+          context,
+          controller: _bottomNavController,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          screens: _screens(context),
+          items: _navBarItems(),
+          navBarStyle: NavBarStyle.style13,
+        ),
       ),
     );
   }
 
   /// Scaffold for iOS
   Widget _buildIos(BuildContext context){
-    return CupertinoPageScaffold(
-      child: PersistentTabView(
-        context,
-        controller: _bottomNavController,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        screens: _screens(context),
-        items: _navBarItems(),
-        navBarStyle: NavBarStyle.style13,
+    return SafeArea(
+      child: CupertinoPageScaffold(
+        child: PersistentTabView(
+          context,
+          controller: _bottomNavController,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          screens: _screens(context),
+          items: _navBarItems(),
+          navBarStyle: NavBarStyle.style13,
+        ),
       ),
     );
   }

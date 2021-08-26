@@ -46,10 +46,9 @@ class _HomePageState extends State<HomePage> {
           // If snapshot has error
           if(snapshot.hasError){
             return Container(
-              padding: const EdgeInsets.all(32),
+              padding: const EdgeInsets.only(top: 8.0),
               child: Text(
                 snapshot.error.toString(),
-
               ),
             );
           }
