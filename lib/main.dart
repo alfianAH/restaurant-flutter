@@ -3,7 +3,7 @@ import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/common/theme.dart';
 import 'package:restaurant_app/service/restaurant_provider_service.dart';
-import 'package:restaurant_app/ui/main_scaffold.dart';
+import 'package:restaurant_app/ui/splash_screen.dart';
 
 void main() {
   _setupLogging();
@@ -33,9 +33,9 @@ class MyApp extends StatelessWidget {
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: mode,
-            home: MainScaffold(
+            home: SplashScreen(
               notifier: _notifier,
-              currentTheme: mode,
+              mode: mode,
             ),
           ),
         );
