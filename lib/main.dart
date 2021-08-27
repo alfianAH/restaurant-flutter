@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:provider/provider.dart';
 import 'package:restaurant_app/common/theme.dart';
-import 'package:restaurant_app/service/restaurant_provider_service.dart';
 import 'package:restaurant_app/ui/splash_screen.dart';
 
 void main() {
@@ -25,18 +23,14 @@ class MyApp extends StatelessWidget {
     return ValueListenableBuilder<ThemeMode>(
       valueListenable: _notifier,
       builder: (context, mode, child) {
-        return Provider(
-          create: (_) => RestaurantProviderService.create(),
-          dispose: (_, RestaurantProviderService service) => service.client.dispose(),
-          child: MaterialApp(
-            title: 'Restaurant',
-            theme: lightTheme,
-            darkTheme: darkTheme,
-            themeMode: mode,
-            home: SplashScreen(
-              notifier: _notifier,
-              mode: mode,
-            ),
+        return MaterialApp(
+          title: 'Restaurant',
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          themeMode: mode,
+          home: SplashScreen(
+            notifier: _notifier,
+            mode: mode,
           ),
         );
       },

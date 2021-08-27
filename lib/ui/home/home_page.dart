@@ -1,4 +1,3 @@
-import 'package:chopper/chopper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +37,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _loadRestaurantList(BuildContext context){
-    return FutureBuilder<Response<RestaurantModel>>(
+    return FutureBuilder<RestaurantModel>(
       future: Provider.of<RestaurantProviderService>(context).getRestaurants(),
       builder:(context, snapshot) {
         // If connection is done
@@ -54,7 +53,7 @@ class _HomePageState extends State<HomePage> {
           }
 
           // Get data
-          final restaurantModel = snapshot.data?.body;
+          final restaurantModel = snapshot.data;
 
           // If restaurant model is null, ...
           if(restaurantModel == null){
