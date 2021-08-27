@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/model/restaurant_model.dart';
-import 'package:restaurant_app/service/restaurant_provider_service.dart';
 import 'package:restaurant_app/ui/detail/detail_page.dart';
 import 'package:restaurant_app/ui/widgets/adaptive_icon.dart';
 import 'package:restaurant_app/ui/widgets/icon_text.dart';
@@ -17,6 +15,7 @@ class HomePage extends StatefulWidget{
 class _HomePageState extends State<HomePage> {
   final ScrollController _scrollController = ScrollController();
   final String _title = 'Restaurant';
+  final String _jsonFileName = 'assets/local_restaurant.json';
 
   TextTheme _textTheme(BuildContext context){
     return Theme.of(context).textTheme;
@@ -37,8 +36,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _loadRestaurantList(BuildContext context){
-    return FutureBuilder<RestaurantModel>(
-      future: Provider.of<RestaurantProviderService>(context).getRestaurants(),
+    return FutureBuilder<String>(
+      future: DefaultAssetBundle.of(context).loadString(_jsonFileName),
       builder:(context, snapshot) {
         // If connection is done
         if(snapshot.connectionState == ConnectionState.done){
@@ -53,7 +52,7 @@ class _HomePageState extends State<HomePage> {
           }
 
           // Get data
-          final restaurantModel = snapshot.data;
+          final restaurantModel = parseArticles(snapshot.data);
 
           // If restaurant model is null, ...
           if(restaurantModel == null){
