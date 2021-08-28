@@ -30,9 +30,6 @@ dependencies:
   persistent_bottom_nav_bar: ^4.0.2
   universal_platform: ^1.0.0+1
 
-  # Log
-  logging: ^1.0.0
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

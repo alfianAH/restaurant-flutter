@@ -147,6 +147,5 @@ RestaurantModel? parseArticles(String? json){
   }
 
   final parsed = jsonDecode(json);
-  print(parsed.runtimeType);
   return RestaurantModel.fromJson(parsed);
 }
