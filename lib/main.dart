@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:restaurant_app/common/theme.dart';
-import 'package:restaurant_app/ui/splash_screen.dart';
+import 'package:restaurant_app/ui/main_scaffold.dart';
 
 void main() {
   _setupLogging();
@@ -28,9 +28,9 @@ class MyApp extends StatelessWidget {
           theme: lightTheme,
           darkTheme: darkTheme,
           themeMode: mode,
-          home: SplashScreen(
+          home: MainScaffold(
             notifier: _notifier,
-            mode: mode,
+            currentTheme: mode,
           ),
         );
       },

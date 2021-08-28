@@ -304,7 +304,7 @@ class DetailPage extends StatelessWidget{
   /// Template for food and drink menu
   Widget _buildMenu(BuildContext context, IconText iconText, List menuList){
     return Container(
-      width: 200,
+      width: MediaQuery.of(context).size.width / 2 - 32,
       decoration: BoxDecoration(
         color: Theme.of(context).accentColor,
         borderRadius: BorderRadius.circular(10),
